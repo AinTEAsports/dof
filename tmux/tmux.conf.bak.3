@@ -1,0 +1,154 @@
+# set-environment -g PATH "$HOME/.local/bin:/usr/local/bin:/opt/homebrew/bin:/$HOME/.cargo/bin:$PATH"
+set -g default-terminal "xterm-256color"
+set -ag terminal-overrides ",xterm-256color:RGB"
+set -g status-keys vi
+
+
+set-window-option -g mode-keys vi
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+
+bind-key x kill-pane
+
+set -g set-titles-string ' #{pane_title} '
+
+bind-key / copy-mode \; send-key ?
+
+bind -n M-Left select-pane -L
+bind -n M-Right select-pane -R
+bind -n M-Up select-pane -U
+bind -n M-Down select-pane -D
+set -g mouse on
+set-option -g visual-activity off
+set-option -g visual-bell off
+set-option -g visual-silence off
+set-window-option -g monitor-activity off
+set-window-option -g mode-style bg=0,fg=default,noreverse
+# setw -g window-status-format " #I:#W#F "
+setw -g window-status-format " #I:#W "
+set-window-option -g window-status-style fg=grey
+# setw -g window-status-current-format "#I:#W#F"
+setw -g window-status-current-format "  #I:#W "
+set-window-option -g window-status-current-style bg=default,fg=green
+set-option -g renumber-windows on
+
+# bind-key r source-file ~/.config/tmux/tmux.conf \; display-message "tmux.conf reloaded."
+bind-key r source-file ~/.config/tmux/tmux.conf
+
+
+# remap prefix from 'C-b' to 'C-a'
+
+set-option -g bell-action none
+set -g status-justify left
+# set -g status-bg colour8
+set -g status-bg default
+set -g status-fg blue
+# set -g status-right ' #(cd #{pane_current_path}; git rev-parse --abbrev-ref HEAD)    #{=50:pane_current_path}   %b %d %H:%M '
+# set -g status-right ' #(cd #{pane_current_path}; git rev-parse --abbrev-ref HEAD)    #{=50:pane_current_path} #(~/.config/tmux/scripts/battery Discharging; ~/.config/tmux/scripts/battery Charging | %e %B %r)  %H:%M '
+# set -g status-right ' #(cd #{pane_current_path}; git rev-parse --abbrev-ref HEAD)    #{=50:pane_current_path}    #(~/.config/tmux/scripts/battery.sh)   %H:%M '
+# set -g status-right '#(cd #{pane_current_path}; git rev-parse --abbrev-ref HEAD)    #{=50:pane_current_path}    #(~/.config/tmux/scripts/battery.sh)   %H:%M '
+set -g status-right '#(~/.config/tmux/scripts/showgitinfos.sh) #(cd #{pane_current_path})    #{=51:pane_current_path}    #(~/.config/tmux/scripts/battery.sh)   %H:%M '
+set -g status-right-length 200
+set -g status-left ''
+set -sg escape-time 0
+
+set -g base-index 1
+setw -g pane-base-index 1
+set -g pane-border-format " #P: #{pane_current_command} "
+
+
+# List of plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'tmux-plugins/tmux-yank'
+set -g @plugin 'christoomey/vim-tmux-navigator'
+set -g @plugin 'sainnhe/tmux-fzf'
+
+
+
+
+# PREFIX REBIND #
+unbind-key C-b
+set-option -g prefix C-q
+bind-key C-q send-prefix
+# ############# #
+
+set-option -g status-position top
+
+
+# PANES VIM BINDS #
+bind -r h select-pane -L
+bind -r j select-pane -D
+bind -r k select-pane -U
+bind -r l select-pane -R
+bind -r > swap-pane -D
+bind -r < swap-pane -U
+
+# bind-key h select-pane -L
+# bind-key j select-pane -D
+# bind-key k select-pane -U
+# bind-key l select-pane -R
+
+bind-key -r C-h select-window -t :-
+bind-key -r C-l select-window -t :+
+
+# ############### #
+
+
+# WINDOW REBINDS #
+bind -n M-H previous-window
+bind -n M-L next-window
+# ############## #
+
+
+# True colors
+set-option -sa terminal-overrides ",xterm*:Tc"
+
+
+# https://draculatheme.com/tmux
+# set -g @dracula-show-left-icon session
+# set -g @dracula-show-right-sep 
+# set-option -g status-right ""
+# set -g @dracula-plugins " "
+
+# available plugins: battery, cpu-usage, git, gpu-usage, ram-usage, tmux-ram-usage, network, network-bandwidth, network-ping, attached-clients, network-vpn, weather, time, spotify-tui, kubernetes-context, synchronize-panes
+
+
+# Colorscheme
+# set -g @catppuccin_flavour 'macchiato'
+
+
+# Numbering windows from '1' instead of '0'
+set -g base-index 1
+set -g pane-base-index 1
+set-window-option -g pane-base-index 1
+set-option -g renumber-windows on
+
+
+# Set vi-mode
+set-window-option -g mode-keys vi
+
+# Tmux yank keybinds
+bind-key -T copy-mode-vi v send-keys -X begin-selection
+bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
+bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
+
+
+# Open panes in current working directory
+bind '"' split-window -v -c "#{pane_current_path}"
+bind % split-window -h -c "#{pane_current_path}"
+
+# set-option -g status-style bg=default
+set -g status-style bg=default
+
+# Mouse enabling (for not scrolling through history)
+set -g mouse on
+
+
+
+
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run '$HOME/.tmux/plugins/tpm/tpm'

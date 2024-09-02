@@ -1,0 +1,21 @@
+require('treesj').setup({
+	languages = {
+		"javascript",
+		"typescript",
+		"css",
+		"python",
+		"lua",
+		"json",
+		"jsonc",
+		"json5",
+		"toml",
+		"nim",
+		"c",
+		"cpp",
+		"cs",
+		"rust",
+		"bash",
+		"norg",
+		"zig",
+	}
+})
