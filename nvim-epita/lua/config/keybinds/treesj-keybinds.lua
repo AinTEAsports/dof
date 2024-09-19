@@ -1,3 +1,1 @@
-vim.keymap.set("n", "<M-t>", function()
-	vim.cmd("TSJToggle")
-end)
+vim.keymap.set("n", "<leader><leader>t", "<cmd>TSJToggle<CR>")
