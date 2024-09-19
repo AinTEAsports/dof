@@ -1,0 +1,8 @@
+require("config.keybinds.general-keybinds")
+require("config.keybinds.fzflua-keybinds")
+require("config.keybinds.oil-keybinds")
+require("config.keybinds.trouble-keybinds")
+require("config.keybinds.undotree-keybinds")
+require("config.keybinds.hop-keybinds")
+require("config.keybinds.nvterm-keybinds")
+require("config.keybinds.treesj-keybinds")
